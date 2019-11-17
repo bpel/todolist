@@ -8,8 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TaskType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
+        $options = [];
         $builder
             ->add('title')
             ->add('content', TextareaType::class)

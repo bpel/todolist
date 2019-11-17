@@ -11,8 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
+        $options = [];
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('password', RepeatedType::class, [
