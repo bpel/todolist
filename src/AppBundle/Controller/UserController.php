@@ -33,6 +33,10 @@ class UserController extends Controller
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
+            $roles = array_unique($user->getRoles());
+            dump($roles);
+            die();
+
             $em->persist($user);
             $em->flush();
 
