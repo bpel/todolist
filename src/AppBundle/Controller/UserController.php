@@ -34,8 +34,6 @@ class UserController extends Controller
             $user->setPassword($password);
 
             $roles = array_unique($user->getRoles());
-            dump($roles);
-            die();
 
             $em->persist($user);
             $em->flush();
