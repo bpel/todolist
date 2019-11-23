@@ -42,8 +42,8 @@ class Task
     private $isDone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"remove"})
-     * @JoinColumn(name="author", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
+     * @JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
 
