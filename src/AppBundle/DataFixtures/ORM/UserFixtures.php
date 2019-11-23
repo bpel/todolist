@@ -3,8 +3,6 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -13,6 +11,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class UserFixtures extends AbstractFixture implements ContainerAwareInterface
 {
     private $container;
+
+    public const ADMIN_USER_REFERENCE = 'admin-user';
+    public const USER_REFERENCE = 'user';
 
     public function setContainer(ContainerInterface $container = null)
     {
@@ -33,6 +34,7 @@ class UserFixtures extends AbstractFixture implements ContainerAwareInterface
         $admin_user->setEmail('admin@domain.fr');
         $admin_user->setRoles(array('ROLE_ADMIN'));
         $manager->persist($admin_user);
+        $this->addReference(self::ADMIN_USER_REFERENCE, $admin_user);
 
         // basic user
         $user = new User();
@@ -44,6 +46,7 @@ class UserFixtures extends AbstractFixture implements ContainerAwareInterface
         $user->setEmail('user@domain.fr');
         $user->setRoles(array('ROLE_USER'));
         $manager->persist($user);
+        $this->addReference(self::USER_REFERENCE, $user);
 
         $manager->flush();
     }
