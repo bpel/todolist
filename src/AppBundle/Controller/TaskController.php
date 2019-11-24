@@ -53,6 +53,7 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -91,17 +92,15 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('remove', $task);
+
         $em = $this->getDoctrine()->getManager();
 
-        if($task->getAuthor() == $this->getUser())
-        {
-            $em->remove($task);
-            $em->flush();
-            $this->addFlash('success', 'La tâche a été supprimée!');
-            return $this->redirectToRoute('task_list');
-        }
+        $em->remove($task);
+        $em->flush();
+        $this->addFlash('success', 'La tâche a été supprimée!');
 
-        $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche!');
         return $this->redirectToRoute('task_list');
+
     }
 }
