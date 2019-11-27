@@ -11,31 +11,63 @@ class TaskTest extends TestCase
     private $user;
     private $createdAt;
     private $task;
+    private $author;
 
     public function setUp():void
     {
         $this->user = new User();
         $this->task = new Task();
         $this->createdAt = new \DateTime;
+        $this->author = new User();
     }
 
     /**
      * @test
-     * Test title task
+     * Test set title
      */
-    public function testTaskTitle()
+    public function testSetTitle()
     {
         $this->task->setTitle('task 1');
-        $this->assertEquals($this->task->getTitle(), 'task 1');
+        $this->assertEquals('task 1', $this->task->getTitle());
     }
 
     /**
      * @test
-     * Test content task
+     * Test set content
      */
-    public function testTaskContent()
+    public function testSetContent()
     {
         $this->task->setContent('content task 1');
-        $this->assertEquals($this->task->getContent(), 'content task 1');
+        $this->assertEquals('content task 1', $this->task->getContent());
+    }
+
+    /**
+     * @test
+     * Test set createdAt
+     */
+    public function testSetCreatedAt()
+    {
+        $this->task->setCreatedAt($this->createdAt);
+        $this->assertEquals($this->createdAt, $this->task->getCreatedAt());
+    }
+
+    /**
+     * @test
+     * Test set isDone
+     */
+    public function testSetIsDone()
+    {
+        $this->task->toggle(true);
+        $this->assertEquals(true, $this->task->isDone());
+    }
+
+    /**
+     * @test
+     * Test set author
+     */
+    public function testSetAuthor()
+    {
+        $this->task->setAuthor($this->author);
+        $this->assertEquals($this->author, $this->task->getAuthor());
     }
 }
