@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,6 +13,7 @@ class TaskController extends Controller
 {
     /**
      * @Route("/tasks", name="task_list")
+     * @Security("has_role('ROLE_USER')")
      */
     public function listAction()
     {
@@ -20,6 +22,7 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/create", name="task_create")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
     {
@@ -29,6 +32,8 @@ class TaskController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $task->setAuthor($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($task);
@@ -44,9 +49,11 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -67,6 +74,7 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @Security("has_role('ROLE_USER')")
      */
     public function toggleTaskAction(Task $task)
     {
@@ -80,15 +88,19 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('remove', $task);
+
         $em = $this->getDoctrine()->getManager();
+
         $em->remove($task);
         $em->flush();
-
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $this->addFlash('success', 'La tâche a été supprimée!');
 
         return $this->redirectToRoute('task_list');
+
     }
 }

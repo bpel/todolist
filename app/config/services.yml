@@ -4,6 +4,16 @@ parameters:
 #    parameter_name: value
 
 services:
+  AppBundle\DataFixtures\:
+    resource: '../../src/AppBundle/DataFixtures'
+    tags: ['doctrine.fixture.orm']
+  security.access.task_voter:
+    class: AppBundle\Security\TaskVoter
+    public:     false
+    tags:
+      - { name: security.voter }
+    arguments:
+      ['@security.access.decision_manager']
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
