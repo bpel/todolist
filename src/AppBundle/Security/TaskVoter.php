@@ -44,7 +44,7 @@ class TaskVoter extends Voter implements VoterInterface
 
         $task = $subject;
 
-        if(null == $task->getAuthor())
+        if('anonymous' == $task->getAuthor()->getUsername())
         {
             return $this->decisionManager->decide($token, ['ROLE_ADMIN']);
         }
