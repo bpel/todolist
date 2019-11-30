@@ -18,7 +18,7 @@ class TaskAuditCommand extends ContainerAwareCommand
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): bool
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $taskManager = $this->getContainer()->get('service.task_manager');
         $userManager = $this->getContainer()->get('service.user_manager');
@@ -28,18 +28,19 @@ class TaskAuditCommand extends ContainerAwareCommand
 
         if($numberAnonymousTask > 0)
         {
-            if($userManager->anonymousUserExist() == false)
+            $userManager->checkAnonymousUserExist();
+
+            if($taskManager->linkTaskAnonymousUser() == true)
             {
-                $userManager->createAnonymousUser();
-                $io->note('Anonymous user created');
+                $io->success($numberAnonymousTask.' task(s) has been successfully updated');
+                return true;
             }
 
-            $taskManager->linkTaskAnonymousUser();
-
-            $io->success($numberAnonymousTask.' '.'task(s) has been successfully updated!');
-            return true;
+            $io->error('Error encoutered');
+            return false;
         }
-        $io->note('No task without author');
+
+        $io->note('No task without an author');
         return true;
     }
 

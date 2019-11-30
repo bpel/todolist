@@ -10,11 +10,13 @@ class TaskManager
 {
     private $manager;
     private $container;
+    private $userManager;
 
     public function __construct(EntityManager $manager, Container $container)
     {
         $this->manager = $manager;
         $this->container = $container;
+        $this->userManager = $this->container->get('service.user_manager');
     }
 
     public function getTaskNoAuthor()
@@ -22,11 +24,14 @@ class TaskManager
         return $this->manager->getRepository(Task::class)->findBy(['author' => null]);
     }
 
-    public function linkTaskAnonymousUser()
+    public function linkTaskAnonymousUser():bool
     {
-        $userManager = $this->container->get('service.user_manager');
+        $anonymous_user = $this->userManager->getAnonymousUser();
 
-        $anonymous_user = $userManager->getAnonymousUser();
+        if($anonymous_user == null)
+        {
+            return false;
+        }
 
         foreach ($this->getTaskNoAuthor() as $task)
         {
@@ -34,6 +39,7 @@ class TaskManager
             $this->manager->persist($task);
             $this->manager->flush();
         }
+        return true;
     }
 
 }
