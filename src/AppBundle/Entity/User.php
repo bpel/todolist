@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table("user")
  * @ORM\Entity
  * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class User implements UserInterface
 {
@@ -41,7 +42,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\NotBlank(message="Vous devez sélectionner un rôle")
      */
     private $roles = [];
 
