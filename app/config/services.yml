@@ -36,3 +36,7 @@ services:
       - { name: service.user_manager }
     arguments:
       ['@doctrine.orm.default_entity_manager', '@?']
+
+  app.security.access_denied_handler:
+    class: AppBundle\Security\AccessDeniedHandler
+    autowire: true
