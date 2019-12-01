@@ -4,9 +4,10 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f8e8d4679fce4a50b6f3d190fc7b7bcd)](https://www.codacy.com/manual/bpel/todolist?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bpel/todolist&amp;utm_campaign=Badge_Grade)
 
 ## About the project
-
-Amélioration d'une APP
-
+Improvement of a To Do List application:
+- Correction of anomalies
+- Implementation of new features
+- Production of technical documentation / code audit
 ### Prerequisites
 ```
 PHP > 5.5.9
@@ -14,22 +15,15 @@ MySQL >= 8.0.17
 Symfony ^ 3.4
 Twig >= 1.5
 ```
-
 ### Download or clone the repository
-
-
 ```
 Git clone https://github.com/bpel/todolist.git
 ```
-
 ## Download dependencies
-
 ```
 // from /todolist/
 composer install
 ```
-
-
 ## Config
 
 `app/config/parameters.yml`
@@ -61,9 +55,9 @@ php bin/console task:audit
 php bin/console server:run
 ```
 
-### Default user
+### Default users
 
-username | password | role
----- |  -------- | --------
-admin | admin | admin
-user | user | user
+|username|password|role|
+|---|---|---|
+|admin|user|user|
+|admin|user|user|
