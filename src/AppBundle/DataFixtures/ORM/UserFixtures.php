@@ -44,7 +44,6 @@ class UserFixtures extends AbstractFixture implements ContainerAwareInterface
         $user->setPassword($password);
         
         $user->setEmail('user@domain.fr');
-        $user->setRoles(array('ROLE_USER'));
         $manager->persist($user);
         $this->addReference(self::USER_REFERENCE, $user);
 
