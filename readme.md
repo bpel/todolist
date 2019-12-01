@@ -5,9 +5,9 @@
 
 ## About the project
 Improvement of a To Do List application:
-  - Correction of anomalies
-  - Implementation of new features
-  - Production of technical documentation / code audit
+- Correction of anomalies
+- Implementation of new features
+- Production of technical documentation / code audit
 ### Prerequisites
 ```
 PHP > 5.5.9
@@ -44,11 +44,10 @@ parameters:
 ```
 
 ### Task audit
-
-```
-// for all tasks with author = null update author by anonymous user
+``
 php bin/console task:audit
-```
+``
+
 ## Deployment
 
 ``
