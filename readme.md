@@ -5,9 +5,9 @@
 
 ## About the project
 Improvement of a To Do List application:
-- Correction of anomalies
-- Implementation of new features
-- Production of technical documentation / code audit
+  - Correction of anomalies
+  - Implementation of new features
+  - Production of technical documentation / code audit
 ### Prerequisites
 ```
 PHP > 5.5.9
@@ -51,13 +51,13 @@ php bin/console task:audit
 ```
 ## Deployment
 
-```
+``
 php bin/console server:run
-```
+``
 
 ### Default users
 
-|username|password|role|
-|---|---|---|
-|admin|user|user|
-|admin|user|user|
+| username | password | role  |
+|----------|----------|-------|
+| admin    | admin    | admin |
+| user     | user     | user  |
