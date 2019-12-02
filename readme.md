@@ -14,6 +14,7 @@ PHP > 5.5.9
 MySQL >= 8.0.17
 Symfony ^ 3.4
 Twig >= 1.5
+PhpUnit >= 8.4.3
 ```
 ### Download or clone the repository
 ```
@@ -43,10 +44,23 @@ parameters:
     secret: SECRET_TOKEN
 ```
 
-### Task audit
+## Task audit
 ``
 php bin/console task:audit
 ``
+
+## Tests
+
+```
+// without test coverage
+phpunit
+
+// with test coverage
+phpunit --coverage-html web/test-coverage
+
+access result on: todolist/web/test-coverage/index.html
+```
+
 
 ## Deployment
 
