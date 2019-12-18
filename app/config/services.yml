@@ -35,7 +35,7 @@ services:
     tags:
       - { name: service.user_manager }
     arguments:
-      ['@doctrine.orm.default_entity_manager', '@?']
+      ['@doctrine.orm.default_entity_manager', '@security.user_password_encoder.generic']
 
   app.security.access_denied_handler:
     class: AppBundle\Security\AccessDeniedHandler
