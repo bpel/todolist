@@ -10,11 +10,30 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+        </testsuite>
+        <testsuite name="Command">
+            <directory>tests/AppBundle/Command</directory>
+        </testsuite>
+        <testsuite name="Controller">
+            <directory>tests/AppBundle/Controller</directory>
+        </testsuite>
+        <testsuite name="Entity">
+            <directory>tests/AppBundle/Entity</directory>
+        </testsuite>
+        <testsuite name="Form">
+            <directory>tests/AppBundle/Form</directory>
+        </testsuite>
+        <testsuite name="Security">
+            <directory>tests/AppBundle/Security</directory>
+        </testsuite>
+        <testsuite name="Service">
+            <directory>tests/AppBundle/Service</directory>
         </testsuite>
     </testsuites>
 
