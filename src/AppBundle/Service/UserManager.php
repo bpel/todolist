@@ -19,14 +19,15 @@ class UserManager
 
     public function checkAnonymousUserExist():bool
     {
+        $result = true;
         $userAnonymous = $this->manager->getRepository(User::class)->findOneBy(['username' => 'anonymous']);
 
         if($userAnonymous == null)
         {
-            return $this->createAnonymousUser();
+            $result = $this->createAnonymousUser();
         }
 
-        return true;
+        return $result;
     }
 
     public function createAnonymousUser():bool
@@ -37,13 +38,8 @@ class UserManager
         $anonymous_user->setPassword($this->encoder->encodePassword($anonymous_user,'anonymous'));
         $anonymous_user->setRoles(array('ROLE_USER'));
 
-        try {
-            $this->manager->persist($anonymous_user);
-            $this->manager->flush();
-        } catch (\Exception $e) {
-            return false;
-        }
-
+        $this->manager->persist($anonymous_user);
+        $this->manager->flush();
         return true;
     }
 

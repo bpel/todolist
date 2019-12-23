@@ -28,11 +28,6 @@ class TaskManager
     {
         $anonymous_user = $this->userManager->getAnonymousUser();
 
-        if($anonymous_user == null)
-        {
-            return false;
-        }
-
         foreach ($this->getTaskNoAuthor() as $task)
         {
             $task->setAuthor($anonymous_user);
