@@ -73,7 +73,7 @@ class SecurityControllerTest extends WebTestCase
         ]);
         $client->followRedirects(true);
 
-        $crawler = $client->request('GET', '/logout');
+        $client->request('GET', '/logout');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
