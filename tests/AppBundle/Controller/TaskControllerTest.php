@@ -2,11 +2,14 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Command\TaskAuditCommand;
 use AppBundle\DataFixtures\ORM\TaskFixtures;
 use AppBundle\DataFixtures\ORM\UserFixtures;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
 
 class TaskControllerTest extends WebTestCase
 {
@@ -14,6 +17,7 @@ class TaskControllerTest extends WebTestCase
 
     private $em;
     private $encoder;
+    private $commandTester;
 
     /**
      * {@inheritDoc}
@@ -49,6 +53,15 @@ class TaskControllerTest extends WebTestCase
         $schemaTool->createSchema($metadatas);
 
         $this->encoder = $container->get('security.password_encoder');
+    }
+
+    public function initCommandTaskAudit()
+    {
+        $kernel = static::createKernel();
+        $application = new Application($kernel);
+        $application->add(new TaskAuditCommand());
+        $command = $application->get('task:audit');
+        $this->commandTester = new CommandTester($command);
     }
 
     public function testCreateTask()
@@ -140,5 +153,21 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('Oops ! Impossible de supprimer cette tâche!', $crawler->filter('div.alert')->text());
+    }
+
+    public function testDeleteAnonymousTask()
+    {
+        $this->commandTester->execute([]);
+
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'admin',
+        ]);
+        $client->followRedirects(true);
+
+        $crawler = $client->request('GET', '/tasks/1/delete');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertStringContainsString('Superbe ! La tâche a été supprimée!', $crawler->filter('div.alert')->text());
     }
 }

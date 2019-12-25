@@ -5,9 +5,11 @@ namespace tests\AppBundle\Command;
 use AppBundle\Command\TaskAuditCommand;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
+use AppBundle\Service\TaskManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Console\Tester\CommandTester;
 use Faker;
 
@@ -45,8 +47,6 @@ class TaskAuditCommandTest extends WebTestCase
         $schemaTool->dropDatabase();
 
         $schemaTool->createSchema($metadatas);
-
-        $this->createAnonymousTasks();
     }
 
     public function createAnonymousTasks():void
@@ -67,6 +67,8 @@ class TaskAuditCommandTest extends WebTestCase
      */
     public function testAuditCommand()
     {
+        $this->createAnonymousTasks();
+
         // anonymous user does not exist
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'anonymous']);
         $this->assertEquals($user, null);
