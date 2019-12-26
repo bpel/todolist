@@ -17,25 +17,24 @@ class UserManager
         $this->encoder = $encoder;
     }
 
-    public function checkAnonymousUserExist():bool
+    public function checkAnonymousUserExist(): bool
     {
         $result = true;
         $userAnonymous = $this->manager->getRepository(User::class)->findOneBy(['username' => 'anonymous']);
 
-        if($userAnonymous == null)
-        {
+        if ($userAnonymous == null) {
             $result = $this->createAnonymousUser();
         }
 
         return $result;
     }
 
-    public function createAnonymousUser():bool
+    public function createAnonymousUser(): bool
     {
         $anonymous_user = new User();
         $anonymous_user->setUsername('anonymous');
         $anonymous_user->setEmail('anonymous@domain.fr');
-        $anonymous_user->setPassword($this->encoder->encodePassword($anonymous_user,'anonymous'));
+        $anonymous_user->setPassword($this->encoder->encodePassword($anonymous_user, 'anonymous'));
         $anonymous_user->setRoles(array('ROLE_USER'));
 
         $this->manager->persist($anonymous_user);
@@ -47,5 +46,4 @@ class UserManager
     {
         return $this->manager->getRepository(User::class)->findOneBy(['username' => 'anonymous']);
     }
-
 }

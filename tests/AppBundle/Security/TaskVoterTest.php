@@ -13,7 +13,7 @@ class TaskVoterTest extends TestCase
 {
     private $decisionManager;
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->decisionManager = $this->CreateMock(AccessDecisionManagerInterface::class);
     }

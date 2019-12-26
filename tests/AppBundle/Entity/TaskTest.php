@@ -13,11 +13,11 @@ class TaskTest extends TestCase
     private $task;
     private $author;
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->user = new User();
         $this->task = new Task();
-        $this->createdAt = new \DateTime;
+        $this->createdAt = new \DateTime();
         $this->author = new User();
     }
 

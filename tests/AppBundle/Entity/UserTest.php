@@ -12,11 +12,11 @@ class UserTest extends TestCase
     private $createdAt;
     private $task;
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->user = new User();
         $this->task = new Task();
-        $this->createdAt = new \DateTime;
+        $this->createdAt = new \DateTime();
     }
 
     /**

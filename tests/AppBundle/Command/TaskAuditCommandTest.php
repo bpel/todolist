@@ -22,7 +22,7 @@ class TaskAuditCommandTest extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,12 +49,12 @@ class TaskAuditCommandTest extends WebTestCase
         $schemaTool->createSchema($metadatas);
     }
 
-    private function createAnonymousTasks():void
+    private function createAnonymousTasks(): void
     {
         for ($i = 0; $i < 3; $i++) {
             $task = new Task();
             $task->setAuthor(null);
-            $task->setTitle('task'.$i);
+            $task->setTitle('task' . $i);
             $task->setContent('content');
             $task->setCreatedAt($this->faker->dateTime);
             $this->em->persist($task);
@@ -91,12 +91,11 @@ class TaskAuditCommandTest extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    protected function tearDown():void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
         $this->em->close();
         $this->em = null;
     }
-
 }

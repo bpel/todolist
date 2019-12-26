@@ -26,18 +26,16 @@ class TaskAuditCommand extends ContainerAwareCommand
 
         $numberAnonymousTask = count($taskManager->getTaskNoAuthor());
 
-        if($numberAnonymousTask > 0)
-        {
+        if ($numberAnonymousTask > 0) {
             $userManager->checkAnonymousUserExist();
 
             $taskManager->linkTaskAnonymousUser();
 
-            $io->success($numberAnonymousTask.' task(s) has been successfully updated');
+            $io->success($numberAnonymousTask . ' task(s) has been successfully updated');
             return true;
         }
 
         $io->note('No task without an author');
         return true;
     }
-
 }

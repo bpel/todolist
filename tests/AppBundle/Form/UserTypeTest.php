@@ -44,5 +44,4 @@ class UserTypeTest extends TypeTestCase
         $this->assertEquals($user->getEmail(), $form->get('email')->getData());
         $this->assertEquals(array(), $form->get('roles')->getData());
     }
-
 }

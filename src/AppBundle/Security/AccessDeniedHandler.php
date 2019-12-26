@@ -19,7 +19,8 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
     public function handle(Request $request, AccessDeniedException $e)
     {
-        $request = ""; $e = "";
+        $request = "";
+        $e = "";
         return new Response($this->templating->render('default/index.html.twig', [
             'error_access' => "Vous n'avez pas la permission d'accedez à cette ressource"
         ], 403));
