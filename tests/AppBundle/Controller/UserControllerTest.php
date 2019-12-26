@@ -30,7 +30,7 @@ class UserControllerTest extends WebTestCase
         ]);
     }
 
-    public function initDatabase()
+    private function initDatabase()
     {
         $client = static::createClient();
 

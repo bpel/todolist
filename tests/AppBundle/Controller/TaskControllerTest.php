@@ -8,7 +8,7 @@ use AppBundle\DataFixtures\ORM\UserFixtures;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
-use Symfony\Component\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class TaskControllerTest extends WebTestCase
@@ -27,6 +27,7 @@ class TaskControllerTest extends WebTestCase
         parent::setUp();
 
         $this->initDatabase();
+        $this->initCommandTaskAudit();
 
         $this->loadFixtures([
             TaskFixtures::class,
@@ -34,7 +35,7 @@ class TaskControllerTest extends WebTestCase
         ]);
     }
 
-    public function initDatabase()
+    private function initDatabase()
     {
         $client = static::createClient();
 
@@ -55,7 +56,7 @@ class TaskControllerTest extends WebTestCase
         $this->encoder = $container->get('security.password_encoder');
     }
 
-    public function initCommandTaskAudit()
+    private function initCommandTaskAudit()
     {
         $kernel = static::createKernel();
         $application = new Application($kernel);

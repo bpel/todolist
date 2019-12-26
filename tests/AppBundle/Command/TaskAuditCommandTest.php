@@ -49,7 +49,7 @@ class TaskAuditCommandTest extends WebTestCase
         $schemaTool->createSchema($metadatas);
     }
 
-    public function createAnonymousTasks():void
+    private function createAnonymousTasks():void
     {
         for ($i = 0; $i < 3; $i++) {
             $task = new Task();
