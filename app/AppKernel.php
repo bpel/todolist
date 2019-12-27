@@ -24,11 +24,11 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            $bundles[] = new Liip\TestFixturesBundle\LiipTestFixturesBundle();
 
             if('dev' === $this->getEnvironment())
             {
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
-                $bundles[] = new Liip\TestFixturesBundle\LiipTestFixturesBundle();
             }
         }
 
