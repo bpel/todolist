@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle\Util;
+namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
@@ -13,11 +13,11 @@ class TaskTest extends TestCase
     private $task;
     private $author;
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->user = new User();
         $this->task = new Task();
-        $this->createdAt = new \DateTime;
+        $this->createdAt = new \DateTime();
         $this->author = new User();
     }
 
@@ -69,5 +69,14 @@ class TaskTest extends TestCase
     {
         $this->task->setAuthor($this->author);
         $this->assertEquals($this->author, $this->task->getAuthor());
+    }
+
+    /**
+     * @test
+     * Test author get id
+     */
+    public function testAuthorGetId()
+    {
+        $this->assertEquals(null, $this->task->getId());
     }
 }

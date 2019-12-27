@@ -26,14 +26,16 @@ class SecurityController extends Controller
 
     /**
      * @Route("/login_check", name="login_check")
+     * @codeCoverageIgnore
      */
     public function loginCheck()
     {
-        // This code is never executed.
+        return $this->redirectToRoute('homepage');
     }
 
     /**
      * @Route("/logout", name="logout")
+     * @codeCoverageIgnore
      */
     public function logoutCheck()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle\Util;
+namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
@@ -12,11 +12,11 @@ class UserTest extends TestCase
     private $createdAt;
     private $task;
 
-    public function setUp():void
+    public function setUp(): void
     {
         $this->user = new User();
         $this->task = new Task();
-        $this->createdAt = new \DateTime;
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -66,5 +66,25 @@ class UserTest extends TestCase
     {
         $this->user->setRoles(['ROLE_USER']);
         $this->assertEquals(array('0' => 'ROLE_USER'), $this->user->getRoles());
+    }
+
+    /**
+     * @test
+     * Test erase credentials
+     */
+    public function testEraseCredentials()
+    {
+        $user = $this->user;
+        $this->user->eraseCredentials();
+        $this->assertEquals($user, $this->user);
+    }
+
+    /**
+     * @test
+     * Test user get id
+     */
+    public function testUserGetId()
+    {
+        $this->assertEquals(null, $this->user->getId());
     }
 }

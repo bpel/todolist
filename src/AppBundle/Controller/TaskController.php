@@ -53,9 +53,8 @@ class TaskController extends Controller
      */
     public function editAction(Task $task, Request $request)
     {
-        if($this->isGranted('edit', $task) == false)
-        {
-            $this->addFlash('error','Impossible de modifier cette tâche!');
+        if ($this->isGranted('edit', $task) == false) {
+            $this->addFlash('error', 'Impossible de modifier cette tâche!');
             return $this->redirectToRoute('task_list');
         }
 
@@ -97,9 +96,8 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task)
     {
-        if($this->isGranted('remove', $task) == false)
-        {
-            $this->addFlash('error','Impossible de supprimer cette tâche!');
+        if ($this->isGranted('remove', $task) == false) {
+            $this->addFlash('error', 'Impossible de supprimer cette tâche!');
             return $this->redirectToRoute('task_list');
         }
 

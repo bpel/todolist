@@ -5,9 +5,11 @@ namespace tests\AppBundle\Command;
 use AppBundle\Command\TaskAuditCommand;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
+use AppBundle\Service\TaskManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\Console\Tester\CommandTester;
 use Faker;
 
@@ -20,7 +22,7 @@ class TaskAuditCommandTest extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,16 +47,14 @@ class TaskAuditCommandTest extends WebTestCase
         $schemaTool->dropDatabase();
 
         $schemaTool->createSchema($metadatas);
-
-        $this->createAnonymousTasks();
     }
 
-    public function createAnonymousTasks():void
+    private function createAnonymousTasks(): void
     {
         for ($i = 0; $i < 3; $i++) {
             $task = new Task();
             $task->setAuthor(null);
-            $task->setTitle('task'.$i);
+            $task->setTitle('task' . $i);
             $task->setContent('content');
             $task->setCreatedAt($this->faker->dateTime);
             $this->em->persist($task);
@@ -67,6 +67,8 @@ class TaskAuditCommandTest extends WebTestCase
      */
     public function testAuditCommand()
     {
+        $this->createAnonymousTasks();
+
         // anonymous user does not exist
         $user = $this->em->getRepository(User::class)->findOneBy(['username' => 'anonymous']);
         $this->assertEquals($user, null);
@@ -89,12 +91,11 @@ class TaskAuditCommandTest extends WebTestCase
     /**
      * {@inheritDoc}
      */
-    protected function tearDown():void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
         $this->em->close();
         $this->em = null;
     }
-
 }

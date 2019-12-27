@@ -27,5 +27,4 @@ class TaskTypeTest extends TypeTestCase
         $this->assertEquals($task->getTitle(), $form->get('title')->getData());
         $this->assertEquals($task->getContent(), $form->get('content')->getData());
     }
-
 }

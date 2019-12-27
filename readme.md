@@ -8,6 +8,7 @@ Improvement of a To Do List application:
 - Correction of anomalies
 - Implementation of new features
 - Production of technical documentation / code audit
+- Unit and functional tests
 ### Prerequisites
 ```
 PHP > 5.5.9
@@ -59,6 +60,10 @@ phpunit
 phpunit --coverage-html web/test-coverage
 
 access result on: todolist/web/test-coverage/index.html
+
+// testsuite (Command, Controller, Entity, Form & Service)
+phpunit --testsuite Controller
+
 ```
 
 

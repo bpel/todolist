@@ -12,10 +12,9 @@ class TaskFixtures extends AbstractFixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         // tasks anonymous user
-        for ($i=0; $i < 5; $i++)
-        {
+        for ($i = 0; $i < 5; $i++) {
             $task = new Task();
-            $task->setTitle('task anonymous '.$i);
+            $task->setTitle('task anonymous ' . $i);
             $task->setContent('content task');
             $task->setCreatedAt(new \DateTime('now'));
             $task->setAuthor(null);
@@ -23,10 +22,9 @@ class TaskFixtures extends AbstractFixture implements DependentFixtureInterface
         }
 
         // tasks admin user
-        for ($i=0; $i < 5; $i++)
-        {
+        for ($i = 0; $i < 5; $i++) {
             $task = new Task();
-            $task->setTitle('task admin '.$i);
+            $task->setTitle('task admin ' . $i);
             $task->setContent('content task');
             $task->setCreatedAt(new \DateTime('now'));
             $task->setAuthor($this->getReference(UserFixtures::ADMIN_USER_REFERENCE));
@@ -34,10 +32,9 @@ class TaskFixtures extends AbstractFixture implements DependentFixtureInterface
         }
 
         // tasks user
-        for ($i=0; $i < 5; $i++)
-        {
+        for ($i = 0; $i < 5; $i++) {
             $task = new Task();
-            $task->setTitle('task user '.$i);
+            $task->setTitle('task user ' . $i);
             $task->setContent('content task');
             $task->setCreatedAt(new \DateTime('now'));
             $task->setAuthor($this->getReference(UserFixtures::USER_REFERENCE));
