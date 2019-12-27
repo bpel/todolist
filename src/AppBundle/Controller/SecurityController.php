@@ -30,7 +30,7 @@ class SecurityController extends Controller
      */
     public function loginCheck()
     {
-        // This code is never executed.
+        return $this->redirectToRoute('homepage');
     }
 
     /**
